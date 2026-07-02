@@ -1,3 +1,17 @@
 User-agent: *
 Allow: /
+
+# 네이버 검색로봇
+User-agent: Yeti
+Allow: /
+
+# 구글 검색로봇
+User-agent: Googlebot
+Allow: /
+
+# 빙 검색로봇
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://restora-massage.netlify.app/sitemap.xml
+Sitemap: https://restora-massage.netlify.app/rss.xml

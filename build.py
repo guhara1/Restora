@@ -7,6 +7,7 @@
   / 가격표(60·90·120분) / 내부링크(롱테일 앵커) 노출
 사용법: python3 build.py  →  루트에 정적 HTML 생성
 """
+import datetime
 import html
 import json
 import os
@@ -27,6 +28,10 @@ TELEGRAM_PARTNER = "https://t.me/gandago"     # 제휴문의
 # ── 히어로 우측 이미지(교체 지점: assets/ 에 파일을 넣고 이 경로만 수정) ──
 HERO_IMAGE = "/assets/hero.webp"              # 예: /assets/hero.jpg 로 교체 가능
 HERO_IMAGE_ALT = "부산 야경 오션뷰 프리미엄 케어룸 · 간다GO 방문 케어 안내"
+# 네이버 웹마스터(서치어드바이저) 사이트 인증 — 메인 페이지에만 노출
+NAVER_VERIFY = "3ff3c2610fe5160d8ec8f183534c95eb98d5f53f"
+GOOGLE_VERIFY = ""                            # 구글 서치콘솔 메타 인증값(있으면 입력)
+BUILD_DT = datetime.datetime(2026, 7, 2, 9, 0, 0)   # 빌드 기준 시각(색인 lastmod/pubDate)
 
 # 가격표 (모든 지역/페이지 노출) — 실제 요금(Offer 스키마와 일치)
 PRICING = [
@@ -317,6 +322,13 @@ def page(url, title, desc, crumbs, body_html, faqs=None,
     robots = "index,follow" if index else "noindex,follow"
     og_img = f"{BASE_URL}/assets/og-default.png"
     pricing_block = pricing_html(area_name) if show_pricing else ""
+    # 사이트 인증 메타는 메인 페이지에만
+    verify = ""
+    if url == "/":
+        if NAVER_VERIFY:
+            verify += f'\n<meta name="naver-site-verification" content="{esc(NAVER_VERIFY)}">'
+        if GOOGLE_VERIFY:
+            verify += f'\n<meta name="google-site-verification" content="{esc(GOOGLE_VERIFY)}">'
     doc = f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -334,7 +346,8 @@ def page(url, title, desc, crumbs, body_html, faqs=None,
 <meta property="og:url" content="{esc(full_url)}">
 <meta property="og:image" content="{esc(og_img)}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#08080A">
+<meta name="theme-color" content="#08080A">{verify}
+<link rel="alternate" type="application/rss+xml" title="{esc(SITE_NAME)} 최신 안내" href="/rss.xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -364,7 +377,7 @@ def page(url, title, desc, crumbs, body_html, faqs=None,
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(doc)
-    PAGES.append((url, priority if index else 0.0, index))
+    PAGES.append((url, priority if index else 0.0, index, title, desc))
 
 
 # ------------------------------------------------------------------ 본문 조각 헬퍼
@@ -411,6 +424,31 @@ def auth_note(keys):
                   for k in keys)
     return (f'<div class="callout"><strong>참고 자료</strong> — 이동·교통 정보는 공식 기관 자료로 직접 확인하실 수 있습니다.'
             f'<ul>{lis}</ul></div>')
+
+
+# 롱테일 주제 내부링크(메인~모든 지역 페이지 공통 노출) — 실제 페이지로 연결되는 서술형 앵커
+LONGTAIL_TOPICS = [
+    ("해운대·센텀 호텔 출장마사지 이용 안내", "/busan/area/haeundae-centum/"),
+    ("서면·전포 오피스텔 방문 전 확인", "/busan/area/seomyeon-jeonpo/"),
+    ("광안리·수영 숙소 방문 안내", "/busan/area/gwangalli-suyeong/"),
+    ("부산역·남포 KTX 출장 방문 안내", "/busan/area/busan-station-nampo/"),
+    ("동래·연산 주거지 방문 기준", "/busan/area/dongnae-yeonsan/"),
+    ("창원 상남·중앙 산업단지 방문 안내", "/gyeongnam/changwon-si/"),
+    ("김해 장유·율하 신도시 방문 안내", "/gyeongnam/gimhae-si/"),
+    ("양산 물금신도시 방문 기준", "/gyeongnam/yangsan-si/"),
+    ("진주 혁신도시 출장 방문 안내", "/gyeongnam/jinju-si/"),
+    ("거제 고현·옥포 조선업 배후 방문", "/gyeongnam/geoje-si/"),
+    ("호텔·숙소 방문 전 프런트 확인", "/use/hotel/"),
+    ("오피스텔 공동현관 출입 확인", "/use/officetel/"),
+    ("야간 예약 가능 시간 확인", "/use/night/"),
+    ("외곽 지역 추가 이동비 기준", "/check/travel-fee/"),
+]
+
+def longtail_section(exclude_prefix=None):
+    items = [(t, h) for (t, h) in LONGTAIL_TOPICS
+             if not (exclude_prefix and h.startswith(exclude_prefix))]
+    return sec("함께 보면 좋은 지역·주제", taglist(items),
+               lead="자주 찾는 생활권과 이용·예약 확인 주제로 바로 이동할 수 있습니다.")
 
 
 # 공통 예약 전 체크리스트(모든 지역 페이지 삽입)
@@ -743,6 +781,7 @@ def region_body(h1, sub, over_paras, zones_label, stations, use_intro,
     body += sec("자주 묻는 질문", faq_block(faqs), cls="section faq")
     body += sec("Who · How · Why", whw_block(*whw))
     body += sec("관련 지역 보기", taglist(near_links))
+    body += longtail_section()
     body += ('<section class="section"><div class="container"><div class="notice">'
              '<strong>불법·선정적 서비스 불가</strong> — 본 사이트는 건전한 컨디션·릴랙스 케어 정보만 안내하며, '
              '불법·선정적 서비스는 제공하거나 안내하지 않습니다. '
@@ -833,6 +872,7 @@ def build_subregions(base, parent_name, parent_crumbs, area_hint, station, names
         body += sec("상위 지역 보기", taglist(
             [(f"{parent_name} 전체 안내", base),
              ("부산 생활권 안내","/busan/") if base.startswith("/busan/") else ("경남 권역 안내","/gyeongnam/")]))
+        body += longtail_section()
         body += ('<section class="section"><div class="container"><div class="notice">'
                  '<strong>불법·선정적 서비스 불가</strong> — 건전한 컨디션·릴랙스 케어 정보만 안내합니다. '
                  '<a href="/check/service-policy/">이용 기준 보기 →</a></div></div></section>')
@@ -1052,7 +1092,8 @@ def build_index():
         "부산·경남 생활권을 직접 확인해 정리한 지역 안내 사이트입니다.",
         "지역명 반복이 아니라 실제 방문 주소·생활권·이용 기준 중심으로 구성했습니다.",
         "이용자가 내 위치가 방문 가능 지역인지 쉽게 확인하도록 돕기 위함입니다."))
-    body = hero_sec + intro + busan_sec + gn_sec + use_sec + check_sec + faq_sec + whw_sec
+    topics_sec = longtail_section()
+    body = hero_sec + intro + busan_sec + gn_sec + use_sec + check_sec + topics_sec + faq_sec + whw_sec
     page("/", f"부산·경남 출장마사지｜해운대·서면·창원·김해 홈타이 지역 안내",
          "부산·경남 출장마사지·홈타이 생활권별 방문 가능 지역과 이용 기준 안내.",
          [("홈","")], body, faqs=faqs, area_name="부산·경남", priority=1.0)
@@ -1170,20 +1211,70 @@ def build_contact():
          [("홈","/"),("문의하기","")], body, area_name="부산·경남", priority=0.5)
 
 
-# ------------------------------------------------------------------ sitemap / robots
+# ------------------------------------------------------------------ sitemap / rss / robots
 def write_sitemap():
+    lastmod = BUILD_DT.strftime("%Y-%m-%d")
     urls = ""
-    for path, prio, indexed in PAGES:
+    for path, prio, indexed, title, desc in PAGES:
         if not indexed:
             continue
         urls += (f"<url><loc>{BASE_URL}{path}</loc>"
+                 f"<lastmod>{lastmod}</lastmod>"
                  f"<changefreq>weekly</changefreq><priority>{prio:.1f}</priority></url>")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + "</urlset>")
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write(xml)
+
+
+def write_rss():
+    """색인 대상 페이지 RSS 2.0 — 네이버/구글 등 빠른 발견용."""
+    pub = BUILD_DT.strftime("%a, %d %b %Y %H:%M:%S +0900")
+    items = ""
+    # 색인 대상 중 우선순위 높은 순으로(허브·지역), 최대 60개
+    indexed = [p for p in PAGES if p[2]]
+    indexed.sort(key=lambda p: -p[1])
+    for path, prio, _, title, desc in indexed[:60]:
+        link = BASE_URL + path
+        items += (f"<item><title>{esc(title)}</title>"
+                  f"<link>{link}</link><guid isPermaLink=\"true\">{link}</guid>"
+                  f"<description>{esc(desc)}</description>"
+                  f"<pubDate>{pub}</pubDate></item>")
+    rss = ('<?xml version="1.0" encoding="UTF-8"?>'
+           '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
+           f'<title>{esc(SITE_NAME)} · {esc(SITE_TAGLINE)}</title>'
+           f'<link>{BASE_URL}/</link>'
+           f'<atom:link href="{BASE_URL}/rss.xml" rel="self" type="application/rss+xml"/>'
+           f'<description>부산·경남 출장마사지·홈타이 생활권별 방문 가능 지역과 이용 기준 안내</description>'
+           f'<language>ko-KR</language><lastBuildDate>{pub}</lastBuildDate>'
+           + items + '</channel></rss>')
+    with open(os.path.join(ROOT, "rss.xml"), "w", encoding="utf-8") as f:
+        f.write(rss)
+
+
+def write_robots():
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "",
+        "# 네이버 검색로봇",
+        "User-agent: Yeti",
+        "Allow: /",
+        "",
+        "# 구글 검색로봇",
+        "User-agent: Googlebot",
+        "Allow: /",
+        "",
+        "# 빙 검색로봇",
+        "User-agent: Bingbot",
+        "Allow: /",
+        "",
+        f"Sitemap: {BASE_URL}/sitemap.xml",
+        f"Sitemap: {BASE_URL}/rss.xml",
+        "",
+    ]
     with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8") as f:
-        f.write(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n")
+        f.write("\n".join(lines))
 
 
 def clean_child_dirs(base_rel):
@@ -1232,9 +1323,11 @@ def main():
     build_about_pages()
     build_contact()
     write_sitemap()
-    print(f"생성 완료: {len(PAGES)} 페이지")
-    for path, prio, indexed in PAGES:
-        print(f"  {'[idx]' if indexed else '[nox]'} {path}")
+    write_rss()
+    write_robots()
+    idx = sum(1 for p in PAGES if p[2])
+    print(f"생성 완료: {len(PAGES)} 페이지 (색인 {idx} / noindex {len(PAGES)-idx})")
+    print("sitemap.xml / rss.xml / robots.txt 생성")
 
 
 if __name__ == "__main__":
