@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="간다GO">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF922B"/>
+      <stop offset="0.5" stop-color="#FF7A18"/>
+      <stop offset="1" stop-color="#F5661E"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#g)"/>
+  <rect x="2" y="2" width="60" height="30" rx="16" fill="#ffffff" opacity="0.10"/>
+  <text x="32" y="33" text-anchor="middle" dominant-baseline="central"
+        font-family="'Pretendard Variable', -apple-system, 'Segoe UI', sans-serif"
+        font-size="40" font-weight="900" fill="#150900" letter-spacing="-1">G</text>
+</svg>

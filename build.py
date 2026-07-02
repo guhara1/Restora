@@ -17,7 +17,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 # ------------------------------------------------------------------ 공통 설정
 SITE_NAME = "간다GO"
 SITE_TAGLINE = "부산·경남 출장마사지 지역 안내"
-BASE_URL = "https://ganda-go.com"           # 배포 도메인(교체 지점)
+BASE_URL = "https://restora-massage.netlify.app"   # 배포 도메인
 PHONE = "0508-202-4719"                       # 전화예약
 TEL_HREF = "tel:0508-202-4719"
 # ── 텔레그램 링크(교체 지점: 실제 아이디로 이 한 줄만 수정) ──
@@ -310,6 +310,12 @@ def page(url, title, desc, crumbs, body_html, faqs=None,
 <meta property="og:image" content="{esc(og_img)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#08080A">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 {jsonld(*schemas)}
