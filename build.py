@@ -309,7 +309,7 @@ def page(url, title, desc, crumbs, body_html, faqs=None,
 <meta property="og:url" content="{esc(full_url)}">
 <meta property="og:image" content="{esc(og_img)}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0B1120">
+<meta name="theme-color" content="#08080A">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 {jsonld(*schemas)}

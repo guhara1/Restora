@@ -25,36 +25,36 @@
   --brand-gradient: linear-gradient(135deg, #FF922B 0%, #FF7A18 45%, #F5661E 100%);
   --brand-glow: 0 10px 30px -8px rgba(255, 122, 24, .55);
 
-  /* ---- Neutrals: Deep Navy / Charcoal (premium dark base) ---- */
-  --ink-950: #070B14;
-  --ink-900: #0B1120;   /* page bg */
-  --ink-850: #0E1526;
-  --ink-800: #131C2E;   /* surface */
-  --ink-750: #17223A;   /* surface-2 */
-  --ink-700: #1E2B45;
-  --ink-600: #2A3A5A;
+  /* ---- Neutrals: True Black / Charcoal (중립 블랙 베이스) ---- */
+  --ink-950: #000000;
+  --ink-900: #08080A;   /* page bg — 순블랙에 가까운 차콜 */
+  --ink-850: #0E0E11;
+  --ink-800: #16161A;   /* surface */
+  --ink-750: #1E1E23;   /* surface-2 */
+  --ink-700: #2A2A30;
+  --ink-600: #3A3A42;
 
-  /* ---- Text ---- */
-  --text-strong: #F5F8FC;
-  --text:        #E4EAF3;
-  --text-muted:  #9AA7BD;
-  --text-dim:    #6C7A93;
+  /* ---- Text: 밝은 계열 · 고대비(가독성/시인성) ---- */
+  --text-strong: #FFFFFF;
+  --text:        #EEF0F3;   /* 본문 — 밝은 회백 */
+  --text-muted:  #C4C9D2;   /* 보조 — 대비 상향(기존 대비 밝게) */
+  --text-dim:    #969BA5;   /* 캡션 — 여전히 읽히는 수준까지만 낮춤 */
 
   /* ---- Semantic surfaces ---- */
   --bg:        var(--ink-900);
   --bg-elev:   var(--ink-850);
   --surface:   var(--ink-800);
   --surface-2: var(--ink-750);
-  --border:        rgba(255, 255, 255, .08);
-  --border-strong: rgba(255, 255, 255, .14);
-  --overlay-soft:  rgba(255, 255, 255, .03);
+  --border:        rgba(255, 255, 255, .12);   /* 경계 시인성 강화 */
+  --border-strong: rgba(255, 255, 255, .20);
+  --overlay-soft:  rgba(255, 255, 255, .05);
 
-  /* ---- Component overlays (프리미엄 오버레이) ---- */
-  --overlay-radial: radial-gradient(1200px 600px at 50% -10%, rgba(255,122,24,.14), transparent 60%);
-  --overlay-hero:   radial-gradient(900px 500px at 80% -20%, rgba(255,122,24,.22), transparent 55%),
-                    radial-gradient(700px 500px at 0% 0%, rgba(46,58,90,.5), transparent 60%);
-  --overlay-card:   linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,0) 40%);
-  --overlay-sheen:  linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+  /* ---- Component overlays (프리미엄 오버레이 · 중립 블랙) ---- */
+  --overlay-radial: radial-gradient(1200px 600px at 50% -10%, rgba(255,122,24,.10), transparent 62%);
+  --overlay-hero:   radial-gradient(900px 500px at 82% -20%, rgba(255,122,24,.20), transparent 58%),
+                    radial-gradient(700px 520px at 0% 0%, rgba(255,255,255,.05), transparent 60%);
+  --overlay-card:   linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,0) 42%);
+  --overlay-sheen:  linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,0));
 
   /* ---- Feedback ---- */
   --ok:   #3FBF87;
