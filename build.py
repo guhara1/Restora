@@ -11,6 +11,7 @@ import html
 import json
 import os
 import re
+import shutil
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -565,6 +566,18 @@ GN_EMD = {
   "hapcheon-gun": ["합천읍","봉산면","묘산면","가야면","야로면","율곡면","초계면","쌍책면","덕곡면","청덕면","적중면","대양면","쌍백면","삼가면","가회면","대병면","용주면"],
 }
 
+# 번호 동(1동·2동·3동…)은 대표 1개로 통합 — 예: 부전1동·부전2동 → 부전동, 우1동 → 우동
+def collapse_dong(names):
+    seen = set(); out = []
+    for n in names:
+        base = re.sub(r"\d+동$", "동", n)   # 숫자+동 → 동 (부전1동→부전동, 우1동→우동)
+        if base not in seen:
+            seen.add(base); out.append(base)
+    return out
+
+BUSAN_DONG = {k: collapse_dong(v) for k, v in BUSAN_DONG.items()}
+GN_EMD = {k: collapse_dong(v) for k, v in GN_EMD.items()}
+
 # ------------------------------------------------------------------ 데이터: 경남 권역(5)
 GN_AREAS = [
   {"slug":"changwon-gimhae-yangsan","name":"창원·김해·양산권","zones":"창원·김해·양산·밀양 일부",
@@ -796,11 +809,11 @@ def build_subregions(base, parent_name, parent_crumbs, area_hint, station, names
     """하위 지역(행정동/읍·면) 페이지 일괄 생성 — noindex, 고유 구조, 상호 내부링크."""
     for i, d in enumerate(names):
         url = f"{base}{_slug(d)}/"
-        h1 = f"{parent_name} {d} 방문 지역 안내"
+        h1 = f"{d} 출장마사지 · {parent_name} 방문 안내"
         sub = _INTROS[i % len(_INTROS)].format(pn=parent_name, d=d)
-        desc = f"{parent_name} {d} 방문 가능 여부·이용 전 확인 안내. {area_hint} 기준."
+        desc = f"{d} 출장마사지·홈타이 방문 안내. {parent_name} 이용 기준."
         if len(desc) > 80:
-            desc = f"{parent_name} {d} 방문 안내. {area_hint} 이용 기준."
+            desc = f"{d} 출장마사지 방문 안내. {parent_name} 이용 기준."
         crumbs = parent_crumbs + [(d, "")]
         # 인근 하위 지역(같은 부모) 상호 링크 — 창을 회전시켜 순서 중복 방지
         others = [x for x in names if x != d]
@@ -1173,6 +1186,17 @@ def write_sitemap():
         f.write(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n")
 
 
+def clean_child_dirs(base_rel):
+    """구/시/군 폴더의 하위 지역 디렉터리를 모두 제거(재생성 전 정리)."""
+    d = os.path.join(ROOT, base_rel)
+    if not os.path.isdir(d):
+        return
+    for name in os.listdir(d):
+        p = os.path.join(d, name)
+        if os.path.isdir(p):
+            shutil.rmtree(p)
+
+
 def main():
     build_index()
     build_busan_index()
@@ -1182,6 +1206,11 @@ def main():
     for a in GN_AREAS: build_gn_area(a)
     for c in ALL_GN_CITIES: build_gn_city(c)
     # 하위 지역(행정동/읍·면·동) — noindex, 상호 롱테일 내부링크
+    # 기존 하위 지역 폴더 정리(번호 동 통합 등으로 사라진 경로 제거)
+    for g in BUSAN_GU:
+        clean_child_dirs(f"busan/{g['slug']}")
+    for c in ALL_GN_CITIES:
+        clean_child_dirs(f"gyeongnam/{c['slug']}")
     for g in BUSAN_GU:
         dongs = BUSAN_DONG.get(g['slug'], [])
         area = next((x for x in BUSAN_AREAS if x['slug'] == g['area']), None)
