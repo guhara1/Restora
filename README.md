@@ -51,5 +51,6 @@ python3 build.py      # 루트에 62개 정적 HTML + sitemap.xml + robots.txt �
                           + 3차 5개 군(의령·산청·함양·거창·합천, noindex)
 /use/<9개 이용 장소>/
 /check/<10개 예약 전 확인>/
+/about/                   운영 기준 허브(E-E-A-T) + 4개(운영방식·편집기준·색인기준·서비스원칙)
 /contact/                 문의(전화·제작·제휴)
 ```
