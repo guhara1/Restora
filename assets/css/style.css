@@ -270,3 +270,23 @@ a.card:hover { transform: translateY(-3px); border-color: var(--brand-400); box-
 @media (prefers-reduced-motion: reduce) {
   .call-fab, .call-fab::before, .call-fab::after { animation: none !important; }
 }
+
+/* ---- Hero with right-side media (모든 지역 공통) ---- */
+.hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+.hero-copy { min-width: 0; }
+.hero-media { position: relative; }
+.hero-media img {
+  width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover;
+  border-radius: var(--r-xl); border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-3); background: var(--surface);
+}
+.hero-media::after {
+  content: ""; position: absolute; inset: -12% -8% auto auto; width: 60%; height: 60%;
+  background: radial-gradient(circle at 70% 30%, rgba(255,122,24,.35), transparent 70%);
+  filter: blur(30px); z-index: -1; pointer-events: none;
+}
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-media { max-width: 520px; }
+  .hero-media img { aspect-ratio: 16 / 10; }
+}

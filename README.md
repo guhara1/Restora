@@ -21,6 +21,7 @@ python3 build.py      # 루트에 62개 정적 HTML + sitemap.xml + robots.txt �
 | `BASE_URL` | `https://ganda-go.com` | canonical·og·schema·sitemap 도메인 |
 | `PHONE` / `TEL_HREF` | `0508-202-4719` | 전화예약 번호 |
 | `PRICING` | 90,000 / 150,000 / 180,000 | 코스별 요금(가격표 + Offer 스키마 동시 반영) |
+| `HERO_IMAGE` | `/assets/hero.svg` | 히어로 우측 이미지(전 페이지 공통). `assets/`에 파일 넣고 이 경로만 교체 |
 
 ## 디자인 토큰 / 컴포넌트
 - `assets/css/tokens.css` — 프리미엄 팔레트(딥 네이비 + 오렌지) · Pretendard · 반경/그림자/타이포 토큰

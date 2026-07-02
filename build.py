@@ -23,6 +23,9 @@ TEL_HREF = "tel:0508-202-4719"
 # ── 텔레그램 링크(교체 지점: 실제 아이디로 이 한 줄만 수정) ──
 TELEGRAM_BUILD = "https://t.me/gandago"       # 웹사이트 제작문의
 TELEGRAM_PARTNER = "https://t.me/gandago"     # 제휴문의
+# ── 히어로 우측 이미지(교체 지점: assets/ 에 파일을 넣고 이 경로만 수정) ──
+HERO_IMAGE = "/assets/hero.svg"               # 예: /assets/hero.jpg 로 교체 가능
+HERO_IMAGE_ALT = "부산·경남 출장마사지 방문 케어 안내"
 
 # 가격표 (모든 지역/페이지 노출) — 실제 요금(Offer 스키마와 일치)
 PRICING = [
@@ -276,6 +279,27 @@ def footer_html():
     </div>
   </div>
 </footer>"""
+
+
+def hero_media_html():
+    return (f'<div class="hero-media"><img src="{esc(HERO_IMAGE)}" alt="{esc(HERO_IMAGE_ALT)}" '
+            f'width="720" height="576" decoding="async" loading="eager"></div>')
+
+
+def hero(eyebrow, h1, lead, cta_html="", media=True):
+    """우측 이미지 슬롯을 포함한 공통 히어로(모든 지역 페이지 공유)."""
+    cta = f'<div class="cta-row">{cta_html}</div>' if cta_html else ""
+    media_block = hero_media_html() if media else ""
+    grid_cls = "container hero-grid" if media else "container"
+    return f"""<section class="hero"><div class="{grid_cls}">
+  <div class="hero-copy">
+    <span class="eyebrow">{esc(eyebrow)}</span>
+    <h1>{esc(h1)}</h1>
+    <p class="lead">{esc(lead)}</p>
+    {cta}
+  </div>
+  {media_block}
+</div></section>"""
 
 
 # ------------------------------------------------------------------ 페이지 조립
@@ -686,13 +710,7 @@ def region_body(h1, sub, over_paras, zones_label, stations, use_intro,
                 near_links, faqs, whw, auth_keys=None, extra=""):
     over = "".join(f"<p>{esc(p)}</p>" for p in over_paras)
     st = " · ".join(stations)
-    body = f"""<section class="section" style="padding-top:2rem">
-  <div class="container">
-    <span class="eyebrow">지역 안내</span>
-    <h1>{esc(h1)}</h1>
-    <p class="lead">{esc(sub)}</p>
-  </div>
-</section>"""
+    body = hero("지역 안내", h1, sub)
     inner = f"""<div class="prose">
     {over}
     <h3>대표 생활권</h3>
@@ -794,9 +812,7 @@ def build_subregions(base, parent_name, parent_crumbs, area_hint, station, names
               f"정확한 방문 주소를 기준으로 확인하는 것이 안전합니다.")
         p2 = (f"{d} 방문 시에는 공동현관·엘리베이터 출입 방식, 호텔·숙소의 프런트 확인 방식, 예약 가능 시간을 먼저 확인해 주세요. "
               f"외곽으로 이어지는 경우 이동 거리에 따른 기준도 함께 확인합니다.")
-        body = f"""<section class="section" style="padding-top:2rem"><div class="container">
-          <span class="eyebrow">{esc(parent_name)} · {esc(unit)}</span>
-          <h1>{esc(h1)}</h1><p class="lead">{esc(sub)}</p></div></section>"""
+        body = hero(f"{parent_name} · {unit}", h1, sub)
         body += sec("방문 전 확인", f'<div class="prose"><p>{esc(p1)}</p><p>{esc(p2)}</p></div>')
         if sib:
             body += sec(f"인근 {unit} 보기", taglist(sib))
@@ -949,8 +965,7 @@ CHECK_PAGES = [
 def simple_content_page(url, h1, sub, desc, crumbs, paras, related, area_name,
                         auth_keys=None, priority=0.6):
     over = "".join(f"<p>{esc(p)}</p>" for p in paras)
-    body = f"""<section class="section" style="padding-top:2rem"><div class="container">
-      <span class="eyebrow">안내</span><h1>{esc(h1)}</h1><p class="lead">{esc(sub)}</p></div></section>"""
+    body = hero("안내", h1, sub)
     body += sec("안내 내용", f'<div class="prose">{over}</div>')
     if auth_keys:
         body += sec("참고 자료", auth_note(auth_keys))
@@ -963,9 +978,8 @@ def simple_content_page(url, h1, sub, desc, crumbs, paras, related, area_name,
 
 def build_use_pages():
     idx_cards = [(f"{name}", intro, f"/use/{slug}/") for slug,name,intro,_ in USE_PAGES]
-    body = f"""<section class="section" style="padding-top:2rem"><div class="container">
-      <span class="eyebrow">이용 장소</span><h1>이용 장소에 따라 확인할 내용이 다릅니다</h1>
-      <p class="lead">자택·호텔·오피스텔·업무지구·산업단지·터미널·관광지 등 방문 장소별 확인 사항을 안내합니다.</p></div></section>"""
+    body = hero("이용 장소", "이용 장소에 따라 확인할 내용이 다릅니다",
+                "자택·호텔·오피스텔·업무지구·산업단지·터미널·관광지 등 방문 장소별 확인 사항을 안내합니다.")
     body += sec("이용 장소별 안내", card_grid(idx_cards, cols=3))
     body += sec("예약 전 확인 안내", taglist(CHECK_LINKS))
     page("/use/", f"이용 장소별 확인 안내｜{SITE_NAME}",
@@ -981,9 +995,8 @@ def build_use_pages():
 
 def build_check_pages():
     idx_cards = [(name, intro, f"/check/{slug}/") for slug,name,intro,_ in CHECK_PAGES]
-    body = f"""<section class="section" style="padding-top:2rem"><div class="container">
-      <span class="eyebrow">예약 전 확인</span><h1>예약 전 확인해야 할 내용</h1>
-      <p class="lead">방문 주소·건물 출입 방식·예약 시간·이용 기준 등 예약 전 확인 사항을 안내합니다.</p></div></section>"""
+    body = hero("예약 전 확인", "예약 전 확인해야 할 내용",
+                "방문 주소·건물 출입 방식·예약 시간·이용 기준 등 예약 전 확인 사항을 안내합니다.")
     body += sec("예약 전 확인 항목", card_grid(idx_cards, cols=3))
     body += sec("이용 장소 안내", taglist(USE_LINKS))
     page("/check/", f"예약 전 확인 안내｜{SITE_NAME}",
@@ -999,15 +1012,12 @@ def build_check_pages():
 
 # ------------------------------------------------------------------ 메인 / 부산 / 경남 / 문의
 def build_index():
-    hero = f"""<section class="hero"><div class="container">
-      <span class="eyebrow">부산·경남 출장마사지 지역 안내</span>
-      <h1>부산·경남 출장마사지 · 생활권별 방문 가능 지역 안내</h1>
-      <p class="lead">해운대·서면·광안리·부산역·창원·김해·양산·거제·진주 등 부산·경남 주요 생활권과 자택·호텔·오피스텔 이용 전 확인사항을 안내합니다.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="/busan/">부산 생활권 보기</a>
-        <a class="btn btn-ghost btn-lg" href="/gyeongnam/">경남 권역 보기</a>
-        <a class="btn btn-ghost btn-lg" href="/use/">이용 장소 보기</a>
-      </div></div></section>"""
+    hero_sec = hero("부산·경남 출장마사지 지역 안내",
+        "부산·경남 출장마사지 · 생활권별 방문 가능 지역 안내",
+        "해운대·서면·광안리·부산역·창원·김해·양산·거제·진주 등 부산·경남 주요 생활권과 자택·호텔·오피스텔 이용 전 확인사항을 안내합니다.",
+        '<a class="btn btn-primary btn-lg" href="/busan/">부산 생활권 보기</a>'
+        '<a class="btn btn-ghost btn-lg" href="/gyeongnam/">경남 권역 보기</a>'
+        '<a class="btn btn-ghost btn-lg" href="/use/">이용 장소 보기</a>')
     intro = sec("부산·경남은 지역명보다 생활권 확인이 먼저입니다",
         '<div class="prose"><p>부산은 해안 관광지, 도심 상권, 주거지, 업무지구, 서부산 산업권이 서로 다릅니다. 경남은 도시 간 이동 거리가 넓고, 창원·김해·양산 같은 생활권과 거제·통영·진주 같은 권역의 이용 기준이 다릅니다.</p><p>따라서 단순히 시·군 이름만 보는 것이 아니라 실제 방문 주소, 가까운 생활권, 숙소 형태, 건물 출입 방식, 예약 가능 시간을 함께 확인해야 합니다.</p></div>')
     b_cards = [(a['name'], a['zones'], f"/busan/area/{a['slug']}/") for a in BUSAN_AREAS]
@@ -1029,22 +1039,20 @@ def build_index():
         "부산·경남 생활권을 직접 확인해 정리한 지역 안내 사이트입니다.",
         "지역명 반복이 아니라 실제 방문 주소·생활권·이용 기준 중심으로 구성했습니다.",
         "이용자가 내 위치가 방문 가능 지역인지 쉽게 확인하도록 돕기 위함입니다."))
-    body = hero + intro + busan_sec + gn_sec + use_sec + check_sec + faq_sec + whw_sec
+    body = hero_sec + intro + busan_sec + gn_sec + use_sec + check_sec + faq_sec + whw_sec
     page("/", f"부산·경남 출장마사지｜해운대·서면·창원·김해 홈타이 지역 안내",
          "부산·경남 출장마사지·홈타이 생활권별 방문 가능 지역과 이용 기준 안내.",
          [("홈","")], body, faqs=faqs, area_name="부산·경남", priority=1.0)
 
 
 def build_busan_index():
-    hero = f"""<section class="hero"><div class="container">
-      <span class="eyebrow">부산</span>
-      <h1>부산 출장마사지 · 생활권과 16개 구·군 안내</h1>
-      <p class="lead">해운대·센텀, 서면·전포, 광안리·수영, 부산역·남포 등 부산 8개 생활권과 16개 구·군의 방문 가능 지역을 안내합니다.</p>
-      <div class="cta-row"><a class="btn btn-primary btn-lg" href="#area">생활권 보기</a>
-      <a class="btn btn-ghost btn-lg" href="#gu">구·군 보기</a></div></div></section>"""
+    hero_sec = hero("부산", "부산 출장마사지 · 생활권과 16개 구·군 안내",
+        "해운대·센텀, 서면·전포, 광안리·수영, 부산역·남포 등 부산 8개 생활권과 16개 구·군의 방문 가능 지역을 안내합니다.",
+        '<a class="btn btn-primary btn-lg" href="#area">생활권 보기</a>'
+        '<a class="btn btn-ghost btn-lg" href="#gu">구·군 보기</a>')
     a_cards = [(a['name'], a['zones'], f"/busan/area/{a['slug']}/") for a in BUSAN_AREAS]
     gu_cards = [(g['name'], g['h'], f"/busan/{g['slug']}/") for g in BUSAN_GU]
-    body = hero
+    body = hero_sec
     body += sec("부산 주요 생활권", card_grid(a_cards, cols=4), hid="area")
     body += sec("부산 16개 구·군 안내", card_grid(gu_cards, cols=4), hid="gu")
     body += sec("경남도 함께 확인하세요", taglist(
@@ -1055,16 +1063,14 @@ def build_busan_index():
 
 
 def build_gn_index():
-    hero = f"""<section class="hero"><div class="container">
-      <span class="eyebrow">경남</span>
-      <h1>경남 출장마사지 · 권역과 시·군 안내</h1>
-      <p class="lead">창원·김해·양산권, 진주·사천권, 거제·통영·고성권 등 경남 5개 권역과 핵심 시·군의 방문 가능 지역을 안내합니다.</p>
-      <div class="cta-row"><a class="btn btn-primary btn-lg" href="#area">권역 보기</a>
-      <a class="btn btn-ghost btn-lg" href="#si">시·군 보기</a></div></div></section>"""
+    hero_sec = hero("경남", "경남 출장마사지 · 권역과 시·군 안내",
+        "창원·김해·양산권, 진주·사천권, 거제·통영·고성권 등 경남 5개 권역과 핵심 시·군의 방문 가능 지역을 안내합니다.",
+        '<a class="btn btn-primary btn-lg" href="#area">권역 보기</a>'
+        '<a class="btn btn-ghost btn-lg" href="#si">시·군 보기</a>')
     a_cards = [(a['name'], a['zones'], f"/gyeongnam/area/{a['slug']}/") for a in GN_AREAS]
     core_cards = [(c['name'], c['h'], f"/gyeongnam/{c['slug']}/") for c in (GN_CITIES + GN_CITIES_2)]
     outer_links = [(c['name'], f"/gyeongnam/{c['slug']}/") for c in GN_CITIES_3]
-    body = hero
+    body = hero_sec
     body += sec("경남 주요 권역", card_grid(a_cards, cols=3), hid="area")
     body += sec("경남 시·군 안내", card_grid(core_cards, cols=4),
                 hid="si", lead="검색 수요와 방문 가능성이 높은 핵심 시·군부터 안내합니다. 각 지역은 실제 방문 가능 여부와 이동 기준을 함께 확인합니다.")
@@ -1110,11 +1116,10 @@ ABOUT_PAGES = [
 def build_about_pages():
     # 허브(운영 기준)
     hub_cards = [(name, sub, f"/about/{slug}/") for slug, name, sub, _, _ in ABOUT_PAGES]
-    body = f"""<section class="hero"><div class="container">
-      <span class="eyebrow">운영 기준</span><h1>간다GO 소개와 운영 기준</h1>
-      <p class="lead">간다GO가 어떤 기준으로 부산·경남 출장마사지 지역 정보를 안내하고, 예약·방문을 운영하는지 정리했습니다.</p>
-      <div class="cta-row"><a class="btn btn-primary btn-lg" href="{esc(TEL_HREF)}">전화예약 {esc(PHONE)}</a>
-      <a class="btn btn-ghost btn-lg" href="/contact/">문의하기</a></div></div></section>"""
+    body = hero("운영 기준", "간다GO 소개와 운영 기준",
+        "간다GO가 어떤 기준으로 부산·경남 출장마사지 지역 정보를 안내하고, 예약·방문을 운영하는지 정리했습니다.",
+        f'<a class="btn btn-primary btn-lg" href="{esc(TEL_HREF)}">전화예약 {esc(PHONE)}</a>'
+        '<a class="btn btn-ghost btn-lg" href="/contact/">문의하기</a>')
     body += sec("간다GO는 이런 사이트입니다",
         '<div class="prose"><p>간다GO는 부산·경남의 출장마사지·홈타이 방문 케어를 안내하는 지역 정보 사이트입니다. 해운대·서면·창원·김해 등 주요 생활권과 자택·호텔·오피스텔 이용 기준을 정리해, 이용자가 자신의 위치가 방문 가능 지역인지 쉽게 확인하도록 돕습니다.</p>'
         '<p class="muted">상호 <strong>간다GO</strong> · 전화예약 ' + esc(PHONE) + ' · 부산·경남 지역 안내 운영. 광고성 반복 페이지가 아닌, 실제 지역 특성에 기반한 안내를 지향합니다.</p></div>')
@@ -1140,14 +1145,11 @@ def build_about_pages():
 
 
 def build_contact():
-    body = f"""<section class="hero"><div class="container">
-      <span class="eyebrow">문의하기</span><h1>예약·제작·제휴 문의</h1>
-      <p class="lead">전화예약 또는 텔레그램으로 편하게 문의해 주세요. 방문 가능 지역과 이용 기준을 안내해 드립니다.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="{esc(TEL_HREF)}">전화예약 {esc(PHONE)}</a>
-        <a class="btn btn-primary btn-lg" href="{esc(TELEGRAM_BUILD)}" target="_blank" rel="noopener">✈ 웹사이트 제작문의</a>
-        <a class="btn btn-primary btn-lg" href="{esc(TELEGRAM_PARTNER)}" target="_blank" rel="noopener">✈ 제휴문의</a>
-      </div></div></section>"""
+    body = hero("문의하기", "예약·제작·제휴 문의",
+        "전화예약 또는 텔레그램으로 편하게 문의해 주세요. 방문 가능 지역과 이용 기준을 안내해 드립니다.",
+        f'<a class="btn btn-primary btn-lg" href="{esc(TEL_HREF)}">전화예약 {esc(PHONE)}</a>'
+        f'<a class="btn btn-primary btn-lg" href="{esc(TELEGRAM_BUILD)}" target="_blank" rel="noopener">✈ 웹사이트 제작문의</a>'
+        f'<a class="btn btn-primary btn-lg" href="{esc(TELEGRAM_PARTNER)}" target="_blank" rel="noopener">✈ 제휴문의</a>')
     body += sec("문의 안내", f'<div class="prose"><p>상호 <strong>{esc(SITE_NAME)}</strong> · 전화예약 <a class="tel" href="{esc(TEL_HREF)}">{esc(PHONE)}</a></p><p class="muted">웹사이트 제작문의와 제휴문의는 상단 텔레그램 버튼으로 연결됩니다. 불법·선정적 서비스 관련 문의에는 응하지 않습니다.</p></div>')
     body += sec("예약 전 확인", taglist(CHECK_LINKS))
     page("/contact/", f"문의하기｜{SITE_NAME}",

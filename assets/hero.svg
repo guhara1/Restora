@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 576" width="720" height="576" role="img" aria-label="부산·경남 출장마사지 방문 케어 안내">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16161A"/>
+      <stop offset="1" stop-color="#0B0B0E"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF922B"/>
+      <stop offset="0.5" stop-color="#FF7A18"/>
+      <stop offset="1" stop-color="#F5661E"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.28" r="0.6">
+      <stop offset="0" stop-color="#FF7A18" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FF7A18" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="720" height="576" fill="url(#bg)"/>
+  <rect width="720" height="576" fill="url(#glow)"/>
+
+  <!-- 해안 도시 실루엣(부산·경남 이미지) -->
+  <g opacity="0.9">
+    <rect x="70"  y="360" width="34" height="150" rx="4" fill="#202026"/>
+    <rect x="112" y="300" width="40" height="210" rx="4" fill="#262630"/>
+    <rect x="160" y="330" width="30" height="180" rx="4" fill="#202026"/>
+    <rect x="198" y="250" width="46" height="260" rx="5" fill="#2b2b36"/>
+    <rect x="252" y="320" width="34" height="190" rx="4" fill="#202026"/>
+    <rect x="294" y="288" width="40" height="222" rx="4" fill="#262630"/>
+    <rect x="486" y="330" width="30" height="180" rx="4" fill="#202026"/>
+    <rect x="522" y="270" width="44" height="240" rx="5" fill="#2b2b36"/>
+    <rect x="574" y="312" width="34" height="198" rx="4" fill="#202026"/>
+    <rect x="616" y="286" width="40" height="224" rx="4" fill="#262630"/>
+  </g>
+
+  <!-- 광안대교 느낌의 케이블 라인 -->
+  <path d="M40 470 Q360 360 680 470" fill="none" stroke="url(#orange)" stroke-width="3" opacity="0.55"/>
+  <g stroke="url(#orange)" stroke-width="1.5" opacity="0.35">
+    <line x1="140" y1="437" x2="140" y2="510"/>
+    <line x1="240" y1="416" x2="240" y2="510"/>
+    <line x1="360" y1="408" x2="360" y2="510"/>
+    <line x1="480" y1="416" x2="480" y2="510"/>
+    <line x1="580" y1="437" x2="580" y2="510"/>
+  </g>
+
+  <!-- 브랜드 배지 -->
+  <g transform="translate(64,72)">
+    <rect width="86" height="86" rx="22" fill="url(#orange)"/>
+    <text x="43" y="46" text-anchor="middle" dominant-baseline="central" font-family="'Pretendard Variable',-apple-system,sans-serif" font-size="52" font-weight="900" fill="#150900">G</text>
+  </g>
+
+  <text x="64" y="216" font-family="'Pretendard Variable',-apple-system,sans-serif" font-size="46" font-weight="860" fill="#F5F8FC">부산·경남 방문 케어</text>
+  <text x="64" y="266" font-family="'Pretendard Variable',-apple-system,sans-serif" font-size="24" font-weight="600" fill="#C4C9D2">생활권별 방문 가능 지역 안내 · 간다GO</text>
+
+  <!-- 60·90·120 코스 칩 -->
+  <g font-family="'Pretendard Variable',-apple-system,sans-serif" font-weight="800" font-size="18">
+    <g transform="translate(64,296)"><rect width="104" height="40" rx="20" fill="#1E1E23" stroke="#FF7A18" stroke-opacity="0.4"/><text x="52" y="21" text-anchor="middle" dominant-baseline="central" fill="#FFA85F">60분</text></g>
+    <g transform="translate(180,296)"><rect width="104" height="40" rx="20" fill="#1E1E23" stroke="#FF7A18" stroke-opacity="0.4"/><text x="52" y="21" text-anchor="middle" dominant-baseline="central" fill="#FFA85F">90분</text></g>
+    <g transform="translate(296,296)"><rect width="112" height="40" rx="20" fill="#1E1E23" stroke="#FF7A18" stroke-opacity="0.4"/><text x="56" y="21" text-anchor="middle" dominant-baseline="central" fill="#FFA85F">120분</text></g>
+  </g>
+</svg>
