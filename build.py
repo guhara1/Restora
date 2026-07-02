@@ -564,6 +564,67 @@ GN_CITIES = [
    "stations":["밀양역"],"auth":["korail","gyeongnam"]},
 ]
 
+# ------------------------------------------------------------------ 데이터: 경남 2차 색인 시·군(5, 실수요·고유 콘텐츠)
+GN_CITIES_2 = [
+  {"slug":"haman-gun","name":"함안군","h":"가야·칠원","area":"miryang-changnyeong-haman","areaName":"밀양·창녕·함안권",
+   "life":"가야읍, 칠원·칠서",
+   "over":["함안군은 창원·마산 생활권과 바로 맞닿은 경남 중부의 군입니다. 군청이 있는 가야읍 시가지와, 마산·창원으로 출퇴근이 잦은 칠원읍·칠서 산업단지 배후가 생활권의 축을 이룹니다.",
+          "칠서산업단지 인근에는 근로자 대상 오피스텔·원룸이 형성되어 있어 방문 장소가 산단 배후 주거인지 읍 시가지인지에 따라 이동 기준이 다릅니다. 창원·마산과 가까워 인접 도시 생활권 기준을 함께 확인하면 방문 가능 여부를 판단하기 쉽습니다."],
+   "stations":["함안역","함안시외버스터미널"],"auth":["gyeongnam"],"index":True},
+  {"slug":"changnyeong-gun","name":"창녕군","h":"창녕·남지·부곡","area":"miryang-changnyeong-haman","areaName":"밀양·창녕·함안권",
+   "life":"창녕읍, 남지읍, 부곡온천",
+   "over":["창녕군은 낙동강과 우포늪을 낀 경남 내륙 북부의 군입니다. 창녕읍 행정 시가지, 낙동강변 남지읍 상권, 그리고 전국적으로 알려진 부곡온천 관광·숙박 지구로 생활권이 나뉩니다.",
+          "특히 부곡온천 일대는 호텔·콘도·펜션 숙박 수요가 뚜렷해, 관광 숙소 방문 시 프런트 확인 방식과 객실 출입 방법을 미리 확인하는 것이 좋습니다. 시가지와 온천지구, 강변 지역의 이동 거리가 달라 방문 주소를 먼저 확인해야 합니다."],
+   "stations":["창녕시외버스터미널","남지시외버스터미널"],"auth":["gyeongnam"],"index":True},
+  {"slug":"goseong-gun","name":"고성군","h":"고성읍·당항포","area":"geoje-tongyeong-goseong","areaName":"거제·통영·고성권",
+   "life":"고성읍, 당항포 관광지, 동해면 조선특구",
+   "over":["고성군은 통영·거제와 이어지는 남해안 관광·조선 배후 지역입니다. 고성읍 시가지, 공룡엑스포로 알려진 당항포 관광지, 동해면 일대 조선산업특구가 넓게 흩어져 있습니다.",
+          "관광지와 조선 배후 지역, 읍 시가지의 성격이 달라 방문 장소를 정확히 확인해야 합니다. 통영·거제 도심에서 이동하는 경우가 많아 인접 권역의 이동 기준을 함께 확인하면 방문 가능 여부를 판단하기 쉽습니다."],
+   "stations":["고성시외버스터미널"],"auth":["gyeongnam"],"index":True},
+  {"slug":"hadong-gun","name":"하동군","h":"하동읍·화개","area":"namhae-hadong-west","areaName":"남해·하동·서북부권",
+   "life":"하동읍, 화개·악양, 섬진강변",
+   "over":["하동군은 섬진강과 지리산 자락이 만나는 서부 경남의 관광 군입니다. 하동읍 시가지, 화개장터·쌍계사로 이어지는 화개·악양 관광지, 섬진강변 펜션·리조트가 생활권을 이룹니다.",
+          "관광·펜션 방문이 많아 성수기에는 숙소 프런트 확인 방식과 객실 출입 방법을 미리 확인하는 것이 좋습니다. 남해·구례와 이어지는 외곽 관광지는 이동 거리가 길어 방문 가능 여부를 먼저 확인해야 합니다."],
+   "stations":["하동역","하동시외버스터미널"],"auth":["korail","gyeongnam"],"index":True},
+  {"slug":"namhae-gun","name":"남해군","h":"남해읍·상주","area":"namhae-hadong-west","areaName":"남해·하동·서북부권",
+   "life":"남해읍, 상주·미조, 창선",
+   "over":["남해군은 다리로 연결된 섬 전체가 관광지인 남해안의 군입니다. 남해읍 중심가, 독일마을·다랭이마을·상주은모래비치 등 해안 관광지, 창선-삼천포대교로 사천과 이어지는 창선면이 생활권을 이룹니다.",
+          "펜션·리조트 숙박 수요가 커서 객실 출입 방법과 프런트 확인 방식을 예약 전에 확인하는 것이 좋습니다. 섬 특성상 관광지 간 이동 거리가 길어 방문 가능 여부와 이동 기준을 먼저 확인해야 합니다."],
+   "stations":["남해시외버스터미널"],"auth":["gyeongnam"],"index":True},
+]
+
+# ------------------------------------------------------------------ 데이터: 경남 3차 시·군(5, 외곽 산간·noindex / 도어웨이 회피)
+GN_CITIES_3 = [
+  {"slug":"uiryeong-gun","name":"의령군","h":"의령읍","area":"miryang-changnyeong-haman","areaName":"밀양·창녕·함안권",
+   "life":"의령읍 시가지",
+   "over":["의령군은 남강과 정암(솥바위)으로 알려진 경남 내륙의 농촌 군입니다. 의령읍 시가지를 중심으로 생활권이 좁게 형성되어 있고, 나머지 지역은 농촌·산간으로 넓게 퍼져 있습니다.",
+          "방문 수요가 크지 않고 이동 거리가 긴 지역이 많아, 방문 가능 여부를 먼저 확인해야 합니다. 현재는 색인보다 실제 문의 데이터를 확인한 뒤 안내하는 지역으로 관리합니다."],
+   "stations":["의령시외버스터미널"],"auth":["gyeongnam"],"index":False},
+  {"slug":"sancheong-gun","name":"산청군","h":"산청읍·동의보감촌","area":"namhae-hadong-west","areaName":"남해·하동·서북부권",
+   "life":"산청읍, 지리산 동의보감촌",
+   "over":["산청군은 지리산 자락의 한방·산림 관광지로 알려진 서부 경남의 군입니다. 산청읍 시가지와 동의보감촌 한방테마 관광지, 지리산 산간 지역이 생활권을 이룹니다.",
+          "산간 관광지가 넓게 흩어져 있어 이동 거리가 길고 방문 수요가 제한적입니다. 방문 가능 여부를 먼저 확인하는 지역으로 관리하며, 실제 수요가 확인되면 순차적으로 안내합니다."],
+   "stations":["산청시외버스터미널"],"auth":["gyeongnam"],"index":False},
+  {"slug":"hamyang-gun","name":"함양군","h":"함양읍·상림","area":"namhae-hadong-west","areaName":"남해·하동·서북부권",
+   "life":"함양읍, 상림숲",
+   "over":["함양군은 지리산과 덕유산 사이에 자리한 서북부 경남의 산간 군입니다. 함양읍 시가지와 천년 숲 상림, 산간 관광지가 생활권을 이룹니다.",
+          "도심에서 이동 거리가 매우 길고 방문 수요가 제한적이라, 방문 가능 여부 확인이 우선입니다. 현재는 색인보다 문의 기반으로 안내하는 외곽 지역으로 관리합니다."],
+   "stations":["함양시외버스터미널"],"auth":["gyeongnam"],"index":False},
+  {"slug":"geochang-gun","name":"거창군","h":"거창읍·수승대","area":"namhae-hadong-west","areaName":"남해·하동·서북부권",
+   "life":"거창읍, 수승대",
+   "over":["거창군은 덕유산 자락의 경남 최북단 내륙 군입니다. 거창읍 시가지와 수승대 관광지, 산간 지역이 생활권을 이룹니다.",
+          "산간 외곽 지역이 넓고 이동 거리가 길어 방문 가능 여부를 먼저 확인해야 합니다. 실제 문의 데이터가 확인되기 전까지는 색인보다 안내 위주로 관리하는 지역입니다."],
+   "stations":["거창시외버스터미널"],"auth":["gyeongnam"],"index":False},
+  {"slug":"hapcheon-gun","name":"합천군","h":"합천읍·해인사","area":"namhae-hadong-west","areaName":"남해·하동·서북부권",
+   "life":"합천읍, 해인사, 합천호",
+   "over":["합천군은 해인사와 팔만대장경, 합천호로 알려진 경남 내륙의 관광 군입니다. 합천읍 시가지와 해인사 일대, 합천호 주변 관광지가 생활권을 이룹니다.",
+          "관광지가 산간에 흩어져 이동 거리가 길고 상시 방문 수요가 제한적입니다. 방문 가능 여부를 먼저 확인하는 지역으로 관리하며, 수요가 확인되면 순차적으로 안내합니다."],
+   "stations":["합천시외버스터미널"],"auth":["gyeongnam"],"index":False},
+]
+
+# 전체 경남 시·군(내부링크·권역 매칭용)
+ALL_GN_CITIES = GN_CITIES + GN_CITIES_2 + GN_CITIES_3
+
 
 # ------------------------------------------------------------------ 지역 본문 빌더
 def region_body(h1, sub, over_paras, zones_label, stations, use_intro,
@@ -654,7 +715,9 @@ def build_gn_area(a):
     sub = f"{a['zones']} 등 {a['name']}의 도시별 이동 거리와 이용 기준을 안내합니다."
     desc = f"{a['name']} 출장마사지·홈타이 안내. {a['zones']} 이용 기준."
     crumbs = [("홈","/"),("경남 권역","/gyeongnam/"),(a['name'],"")]
-    near = list(a['cities']) + [("경남 권역 전체 보기","/gyeongnam/"),("부산 생활권 안내","/busan/")]
+    # 권역에 속한 모든 시·군을 데이터에서 도출해 내부링크(색인/noindex 모두 탐색 가능)
+    area_cities = [(c['name'], f"/gyeongnam/{c['slug']}/") for c in ALL_GN_CITIES if c['area'] == a['slug']]
+    near = area_cities + [("경남 권역 전체 보기","/gyeongnam/"),("부산 생활권 안내","/busan/")]
     faqs = [
         (f"{a['name']}은 전 지역 이용이 가능한가요?", "권역 내 도시 간 이동 거리가 넓어, 방문 주소·예약 시간·이동 기준을 나누어 확인한 뒤 안내합니다."),
     ] + COMMON_FAQ_TAIL
@@ -674,19 +737,25 @@ def build_gn_city(c):
     sub = f"{c['life']} 등 {c['name']} 생활권의 방문 가능 지역과 이용 전 확인사항을 안내합니다."
     desc = f"{c['name']} 출장마사지·홈타이 안내. {c['h']} 생활권 이용 기준."
     crumbs = [("홈","/"),("경남 권역","/gyeongnam/"),(c['areaName'],"/gyeongnam/area/"+c['area']+"/"),(c['name'],"")]
-    near = [(f"{c['areaName']} 안내","/gyeongnam/area/"+c['area']+"/"),
-            ("경남 시·군 전체 보기","/gyeongnam/#si"),("이용 장소 안내","/use/")]
+    is_index = c.get('index', True)
+    # 같은 권역의 다른 시·군을 인접 링크로(내부링크 강화)
+    siblings = [(x['name'], f"/gyeongnam/{x['slug']}/")
+                for x in ALL_GN_CITIES if x['area'] == c['area'] and x['slug'] != c['slug']][:3]
+    near = [(f"{c['areaName']} 안내","/gyeongnam/area/"+c['area']+"/")] + siblings + \
+           [("경남 시·군 전체 보기","/gyeongnam/#si"),("이용 장소 안내","/use/")]
     faqs = [
         (f"{c['name']}은 어디까지 방문 가능한가요?", "정확한 방문 주소와 생활권, 예약 시간, 이동 기준을 확인한 뒤 안내합니다."),
     ] + COMMON_FAQ_TAIL
     whw = (f"{c['name']}의 생활권을 확인해 정리한 방문 안내입니다.",
            "실제 방문 주소·숙소 형태·이동 거리 기준으로 정리했습니다.",
            "이용자가 방문 가능 지역인지 쉽게 확인하도록 돕기 위함입니다.")
-    body = region_body(h1, sub, c['over'], c['life'], c['stations'],
-                       "자택·호텔·오피스텔·산업단지 인접 지역에 따라 확인할 내용이 달라집니다.",
+    use_intro = "자택·호텔·오피스텔·산업단지 인접 지역에 따라 확인할 내용이 달라집니다."
+    if not is_index:
+        use_intro = "외곽·산간 지역이 많아 방문 가능 여부와 이동 기준을 먼저 확인해야 합니다."
+    body = region_body(h1, sub, c['over'], c['life'], c['stations'], use_intro,
                        near, faqs, whw, auth_keys=c.get('auth'))
     page(url, f"{h1}｜{SITE_NAME}", desc, crumbs, body, faqs=faqs,
-         area_name=c['name'], priority=0.8)
+         area_name=c['name'], priority=(0.8 if is_index else 0.3), index=is_index)
 
 
 # ------------------------------------------------------------------ 이용 장소 / 예약 전 확인
@@ -860,11 +929,15 @@ def build_gn_index():
       <div class="cta-row"><a class="btn btn-primary btn-lg" href="#area">권역 보기</a>
       <a class="btn btn-ghost btn-lg" href="#si">시·군 보기</a></div></div></section>"""
     a_cards = [(a['name'], a['zones'], f"/gyeongnam/area/{a['slug']}/") for a in GN_AREAS]
-    c_cards = [(c['name'], c['h'], f"/gyeongnam/{c['slug']}/") for c in GN_CITIES]
+    core_cards = [(c['name'], c['h'], f"/gyeongnam/{c['slug']}/") for c in (GN_CITIES + GN_CITIES_2)]
+    outer_links = [(c['name'], f"/gyeongnam/{c['slug']}/") for c in GN_CITIES_3]
     body = hero
     body += sec("경남 주요 권역", card_grid(a_cards, cols=3), hid="area")
-    body += sec("경남 핵심 시·군 안내", card_grid(c_cards, cols=4),
-                hid="si", lead="검색 수요와 방문 가능성이 높은 핵심 시부터 안내하며, 외곽 지역은 방문 가능 여부 확인 후 순차 안내합니다.")
+    body += sec("경남 시·군 안내", card_grid(core_cards, cols=4),
+                hid="si", lead="검색 수요와 방문 가능성이 높은 핵심 시·군부터 안내합니다. 각 지역은 실제 방문 가능 여부와 이동 기준을 함께 확인합니다.")
+    body += sec("외곽·산간 지역 (방문 가능 여부 확인 후 안내)",
+                taglist(outer_links),
+                lead="의령·산청·함양·거창·합천 등 외곽 산간 지역은 이동 거리가 길어, 실제 문의 데이터를 확인한 뒤 순차적으로 안내합니다.")
     body += sec("부산도 함께 확인하세요", taglist(
         [(a['name'], f"/busan/area/{a['slug']}/") for a in BUSAN_AREAS]))
     page("/gyeongnam/", f"경남 출장마사지 권역·시·군 안내｜{SITE_NAME}",
@@ -911,7 +984,7 @@ def main():
     for a in BUSAN_AREAS: build_busan_area(a)
     for g in BUSAN_GU: build_busan_gu(g)
     for a in GN_AREAS: build_gn_area(a)
-    for c in GN_CITIES: build_gn_city(c)
+    for c in ALL_GN_CITIES: build_gn_city(c)
     build_use_pages()
     build_check_pages()
     build_contact()
