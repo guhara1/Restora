@@ -24,8 +24,8 @@ TEL_HREF = "tel:0508-202-4719"
 TELEGRAM_BUILD = "https://t.me/gandago"       # 웹사이트 제작문의
 TELEGRAM_PARTNER = "https://t.me/gandago"     # 제휴문의
 # ── 히어로 우측 이미지(교체 지점: assets/ 에 파일을 넣고 이 경로만 수정) ──
-HERO_IMAGE = "/assets/hero.svg"               # 예: /assets/hero.jpg 로 교체 가능
-HERO_IMAGE_ALT = "부산·경남 출장마사지 방문 케어 안내"
+HERO_IMAGE = "/assets/hero.webp"              # 예: /assets/hero.jpg 로 교체 가능
+HERO_IMAGE_ALT = "부산 야경 오션뷰 프리미엄 케어룸 · 간다GO 방문 케어 안내"
 
 # 가격표 (모든 지역/페이지 노출) — 실제 요금(Offer 스키마와 일치)
 PRICING = [
