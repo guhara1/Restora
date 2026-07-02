@@ -1,0 +1,91 @@
+/* ==========================================================================
+   간다GO · Design Tokens — Premium Palette
+   Pretendard + 토큰 시스템 기반. 디자인 토큰 자체를 프리미엄 팔레트로 교체.
+   ========================================================================== */
+
+/* Pretendard (variable) */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations");
+}
+
+:root {
+  /* ---- Brand: Premium Orange ---- */
+  --brand-50:  #FFF3E9;
+  --brand-100: #FFE1C6;
+  --brand-200: #FFC79A;
+  --brand-300: #FFA85F;
+  --brand-400: #FF8C33;
+  --brand-500: #FF7A18;   /* primary */
+  --brand-600: #F5661E;
+  --brand-700: #D24E12;
+  --brand-gradient: linear-gradient(135deg, #FF922B 0%, #FF7A18 45%, #F5661E 100%);
+  --brand-glow: 0 10px 30px -8px rgba(255, 122, 24, .55);
+
+  /* ---- Neutrals: Deep Navy / Charcoal (premium dark base) ---- */
+  --ink-950: #070B14;
+  --ink-900: #0B1120;   /* page bg */
+  --ink-850: #0E1526;
+  --ink-800: #131C2E;   /* surface */
+  --ink-750: #17223A;   /* surface-2 */
+  --ink-700: #1E2B45;
+  --ink-600: #2A3A5A;
+
+  /* ---- Text ---- */
+  --text-strong: #F5F8FC;
+  --text:        #E4EAF3;
+  --text-muted:  #9AA7BD;
+  --text-dim:    #6C7A93;
+
+  /* ---- Semantic surfaces ---- */
+  --bg:        var(--ink-900);
+  --bg-elev:   var(--ink-850);
+  --surface:   var(--ink-800);
+  --surface-2: var(--ink-750);
+  --border:        rgba(255, 255, 255, .08);
+  --border-strong: rgba(255, 255, 255, .14);
+  --overlay-soft:  rgba(255, 255, 255, .03);
+
+  /* ---- Component overlays (프리미엄 오버레이) ---- */
+  --overlay-radial: radial-gradient(1200px 600px at 50% -10%, rgba(255,122,24,.14), transparent 60%);
+  --overlay-hero:   radial-gradient(900px 500px at 80% -20%, rgba(255,122,24,.22), transparent 55%),
+                    radial-gradient(700px 500px at 0% 0%, rgba(46,58,90,.5), transparent 60%);
+  --overlay-card:   linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,0) 40%);
+  --overlay-sheen:  linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+
+  /* ---- Feedback ---- */
+  --ok:   #3FBF87;
+  --warn: #F2B33D;
+
+  /* ---- Radius ---- */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* ---- Elevation ---- */
+  --shadow-1: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-2: 0 8px 24px -12px rgba(0,0,0,.6);
+  --shadow-3: 0 24px 60px -24px rgba(0,0,0,.7);
+
+  /* ---- Typography ---- */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+               "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+  --fs-xs: .8125rem;
+  --fs-sm: .9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.6rem;
+  --fs-2xl: 2.1rem;
+  --fs-3xl: 2.8rem;
+  --lh: 1.75;
+
+  /* ---- Layout ---- */
+  --maxw: 1160px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --section-y: clamp(48px, 8vw, 96px);
+}
