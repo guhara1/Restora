@@ -329,6 +329,9 @@ def page(url, title, desc, crumbs, body_html, faqs=None,
 {pricing_block}
 </main>
 {footer_html()}
+<a class="call-fab" href="{esc(TEL_HREF)}" aria-label="전화예약 {esc(PHONE)}">
+  <span aria-hidden="true">📞</span><span class="fab-label">전화예약 {esc(PHONE)}</span>
+</a>
 <script src="/assets/js/site.js" defer></script>
 </body>
 </html>"""
@@ -493,6 +496,51 @@ BUSAN_GU = [
   {"slug":"gijang-gun","name":"기장군","h":"기장·정관·일광·오시리아","area":"gijang-jeonggwan","stations":["기장역","오시리아역","일광역"]},
 ]
 
+# ------------------------------------------------------------------ 데이터: 부산 행정동(구별) — 하위 지역 페이지(noindex, 도어웨이 회피)
+BUSAN_DONG = {
+  "jung-gu": ["중앙동","동광동","대청동","보수동","부평동","광복동","남포동","영주1동","영주2동"],
+  "seo-gu": ["동대신1동","동대신2동","동대신3동","서대신1동","서대신3동","서대신4동","부민동","아미동","초장동","충무동","남부민1동","남부민2동","암남동"],
+  "dong-gu": ["초량1동","초량2동","초량3동","초량6동","수정1동","수정2동","수정4동","수정5동","좌천동","범일1동","범일2동","범일5동"],
+  "yeongdo-gu": ["남항동","영선1동","영선2동","신선동","봉래1동","봉래2동","청학1동","청학2동","동삼1동","동삼2동","동삼3동"],
+  "busanjin-gu": ["부전1동","부전2동","연지동","초읍동","양정1동","양정2동","전포1동","전포2동","부암1동","부암3동","당감1동","당감2동","당감4동","가야1동","가야2동","개금1동","개금2동","개금3동","범천1동","범천2동"],
+  "dongnae-gu": ["수민동","복산동","명륜동","온천1동","온천2동","온천3동","사직1동","사직2동","사직3동","안락1동","안락2동","명장1동","명장2동"],
+  "nam-gu": ["대연1동","대연3동","대연4동","대연5동","대연6동","용호1동","용호2동","용호3동","용호4동","용당동","감만1동","감만2동","우암동","문현1동","문현2동","문현3동","문현4동"],
+  "buk-gu": ["구포1동","구포2동","구포3동","금곡동","화명1동","화명2동","화명3동","덕천1동","덕천2동","덕천3동","만덕1동","만덕2동","만덕3동"],
+  "haeundae-gu": ["우1동","우2동","우3동","중1동","중2동","좌1동","좌2동","좌3동","좌4동","송정동","반여1동","반여2동","반여3동","반여4동","반송1동","반송2동","재송1동","재송2동"],
+  "saha-gu": ["괴정1동","괴정2동","괴정3동","괴정4동","당리동","하단1동","하단2동","신평1동","신평2동","장림1동","장림2동","다대1동","다대2동","구평동","감천1동","감천2동"],
+  "geumjeong-gu": ["서1동","서2동","서3동","금사회동동","부곡1동","부곡2동","부곡3동","부곡4동","장전1동","장전2동","선두구동","청룡노포동","남산동","구서1동","구서2동","금성동"],
+  "gangseo-gu": ["대저1동","대저2동","강동동","명지1동","명지2동","가락동","녹산동","가덕도동"],
+  "yeonje-gu": ["거제1동","거제2동","거제3동","거제4동","연산1동","연산2동","연산4동","연산5동","연산6동","연산8동","연산9동"],
+  "suyeong-gu": ["남천1동","남천2동","수영동","망미1동","망미2동","광안1동","광안2동","광안3동","광안4동","민락동"],
+  "sasang-gu": ["삼락동","모라1동","모라3동","덕포1동","덕포2동","괘법동","감전동","주례1동","주례2동","주례3동","학장동","엄궁동"],
+  "gijang-gun": ["기장읍","장안읍","정관읍","일광읍","철마면"],
+}
+
+# ------------------------------------------------------------------ 데이터: 경남 읍·면·동(시·군별) — 하위 지역 페이지(noindex)
+GN_EMD = {
+  # 핵심 시 — 동/읍/면
+  "changwon-si": ["의창동","팔룡동","명곡동","봉림동","용지동","반송동","중앙동","상남동","사파동","가음정동","성주동","웅남동","대방동","월영동","문화동","반월중앙동","완월동","교방동","오동동","합포동","산호동","가포동","현동","석전동","회원동","회성동","양덕1동","양덕2동","합성1동","합성2동","구암1동","구암2동","봉암동","진해 충무동","진해 여좌동","진해 태백동","진해 경화동","진해 병암동","진해 석동","진해 이동","진해 자은동","진해 덕산동","진해 풍호동","진해 웅천동","진해 웅동1동","진해 웅동2동","동읍","북면","대산면","진전면","진북면","진동면"],
+  "gimhae-si": ["회현동","부원동","동상동","활천동","삼안동","불암동","내외동","북부동","칠산서부동","장유1동","장유2동","장유3동","진영읍","주촌면","진례면","한림면","생림면","상동면","대동면"],
+  "yangsan-si": ["중앙동","삼성동","강서동","서창동","소주동","평산동","덕계동","물금읍","동면","원동면","상북면","하북면"],
+  "jinju-si": ["천전동","성북동","중앙동","상봉동","봉수동","상대동","하대1동","하대2동","상평동","초장동","평거동","신안동","이현동","판문동","가호동","충무공동","문산읍","내동면","정촌면","금곡면","진성면","일반성면","이반성면","사봉면","지수면","대곡면","미천면","명석면","대평면","수곡면"],
+  "geoje-si": ["고현동","상문동","수양동","장평동","능포동","장승포동","아주동","옥포1동","옥포2동","마전동","일운면","동부면","남부면","거제면","둔덕면","사등면","연초면","하청면","장목면"],
+  "tongyeong-si": ["무전동","북신동","정량동","도천동","명정동","중앙동","항남동","미수동","봉평동","도남동","산양읍","용남면","도산면","광도면","욕지면","한산면","사량면"],
+  "sacheon-si": ["동서동","선구동","향촌동","벌용동","동서금동","남양동","사천읍","정동면","사남면","용현면","축동면","곤양면","곤명면","서포면"],
+  "miryang-si": ["내일동","내이동","교동","삼문동","가곡동","삼랑진읍","하남읍","부북면","상동면","산외면","산내면","단장면","상남면","초동면","무안면","청도면"],
+  # 2차 색인 군 — 읍·면
+  "haman-gun": ["가야읍","칠원읍","함안면","군북면","법수면","대산면","칠서면","칠북면","산인면","여항면"],
+  "changnyeong-gun": ["창녕읍","남지읍","고암면","성산면","대합면","이방면","유어면","대지면","계성면","영산면","장마면","도천면","길곡면","부곡면"],
+  "goseong-gun": ["고성읍","회화면","마암면","구만면","개천면","영오면","영현면","대가면","하이면","하일면","상리면","삼산면","거류면","동해면"],
+  "hadong-gun": ["하동읍","화개면","악양면","적량면","횡천면","고전면","금남면","진교면","양보면","북천면","청암면","옥종면","금성면"],
+  "namhae-gun": ["남해읍","이동면","상주면","삼동면","미조면","남면","서면","고현면","설천면","창선면"],
+  # 3차 군(noindex) — 읍·면
+  "uiryeong-gun": ["의령읍","가례면","칠곡면","대의면","화정면","용덕면","정곡면","지정면","낙서면","부림면","봉수면","궁류면","유곡면"],
+  "sancheong-gun": ["산청읍","차황면","오부면","생초면","금서면","삼장면","시천면","단성면","신안면","생비량면","신등면"],
+  "hamyang-gun": ["함양읍","마천면","휴천면","유림면","수동면","지곡면","안의면","서상면","서하면","백전면","병곡면"],
+  "geochang-gun": ["거창읍","주상면","웅양면","고제면","북상면","위천면","마리면","남상면","남하면","신원면","가조면","가북면"],
+  "hapcheon-gun": ["합천읍","봉산면","묘산면","가야면","야로면","율곡면","초계면","쌍책면","덕곡면","청덕면","적중면","대양면","쌍백면","삼가면","가회면","대병면","용주면"],
+}
+
 # ------------------------------------------------------------------ 데이터: 경남 권역(5)
 GN_AREAS = [
   {"slug":"changwon-gimhae-yangsan","name":"창원·김해·양산권","zones":"창원·김해·양산·밀양 일부",
@@ -635,7 +683,7 @@ ALL_GN_CITIES = GN_CITIES + GN_CITIES_2 + GN_CITIES_3
 
 # ------------------------------------------------------------------ 지역 본문 빌더
 def region_body(h1, sub, over_paras, zones_label, stations, use_intro,
-                near_links, faqs, whw, auth_keys=None):
+                near_links, faqs, whw, auth_keys=None, extra=""):
     over = "".join(f"<p>{esc(p)}</p>" for p in over_paras)
     st = " · ".join(stations)
     body = f"""<section class="section" style="padding-top:2rem">
@@ -655,6 +703,7 @@ def region_body(h1, sub, over_paras, zones_label, stations, use_intro,
     <p>{esc(use_intro)}</p>
   </div>"""
     body += sec("지역 개요와 이용 기준", inner)
+    body += extra
     body += sec("이용 장소에 따라 확인할 내용", taglist(USE_LINKS))
     body += sec("예약 전 확인해야 할 내용", checklist(COMMON_CHECK) +
                 '<div style="margin-top:1.2rem">' + taglist(CHECK_LINKS) + "</div>")
@@ -690,6 +739,78 @@ def build_busan_area(a):
          area_name=a['name'], priority=0.8)
 
 
+# ------------------------------------------------------------------ 하위 지역(행정동/읍·면·동) — 롱테일 내부링크
+LONGTAIL_POOL = [
+    ("자택 방문 이용 기준 확인","/use/home/"),
+    ("호텔·숙소 방문 전 확인","/use/hotel/"),
+    ("오피스텔 공동현관 출입 확인","/use/officetel/"),
+    ("업무지구 방문 절차 확인","/use/business-district/"),
+    ("KTX·터미널 인접 이용 기준","/use/station-terminal/"),
+    ("야간 예약 가능 시간 확인","/use/night/"),
+    ("외곽 지역 이동 기준 확인","/use/outer-area/"),
+    ("방문 주소 확인 방법 보기","/check/address/"),
+    ("건물 출입 방식 확인하기","/check/building-access/"),
+    ("추가 이동비 기준 확인하기","/check/travel-fee/"),
+    ("예약 변경 기준 확인하기","/check/change-policy/"),
+    ("개인정보 처리 기준 보기","/check/privacy/"),
+    ("불법·선정적 서비스 불가 안내","/check/service-policy/"),
+]
+_INTROS = [
+    "{pn} {d} 및 인근 지역의 방문 가능 여부와 이용 전 확인사항을 안내합니다.",
+    "{pn} {d}과(와) 주변 생활권의 자택·숙소·오피스텔 이용 기준을 정리했습니다.",
+    "{pn} {d} 방문을 준비할 때 확인하면 좋은 이동·출입 기준을 안내합니다.",
+    "{pn} {d}과(와) 가까운 지역의 예약 전 확인 사항을 모았습니다.",
+]
+
+def _slug(name):
+    return name.replace(" ", "-")
+
+def _rotate(pool, start, n):
+    return [pool[(start + k) % len(pool)] for k in range(n)]
+
+def subregion_section(title, base, names, unit):
+    """부모(구/시/군) 페이지에 노출되는 하위 지역 버튼 블록."""
+    links = [(n, f"{base}{_slug(n)}/") for n in names]
+    lead = f"{unit} 버튼을 누르면 해당 지역과 인근 {unit}, 이용 전 확인 안내를 볼 수 있습니다."
+    return sec(f"{title} ({len(names)}개)", taglist(links), hid="dong", lead=lead)
+
+def build_subregions(base, parent_name, parent_crumbs, area_hint, station, names, unit):
+    """하위 지역(행정동/읍·면) 페이지 일괄 생성 — noindex, 고유 구조, 상호 내부링크."""
+    for i, d in enumerate(names):
+        url = f"{base}{_slug(d)}/"
+        h1 = f"{parent_name} {d} 방문 지역 안내"
+        sub = _INTROS[i % len(_INTROS)].format(pn=parent_name, d=d)
+        desc = f"{parent_name} {d} 방문 가능 여부·이용 전 확인 안내. {area_hint} 기준."
+        if len(desc) > 80:
+            desc = f"{parent_name} {d} 방문 안내. {area_hint} 이용 기준."
+        crumbs = parent_crumbs + [(d, "")]
+        # 인근 하위 지역(같은 부모) 상호 링크 — 창을 회전시켜 순서 중복 방지
+        others = [x for x in names if x != d]
+        window = _rotate(others, i, min(10, len(others))) if others else []
+        sib = [(f"{x} 안내", f"{base}{_slug(x)}/") for x in window]
+        longtail = _rotate(LONGTAIL_POOL, i, 6)
+        p1 = (f"{parent_name} {d}은(는) {area_hint} 안에 속한 지역으로, 가까운 거점은 {station} 방면입니다. "
+              f"같은 {parent_name} 안에서도 숙소·오피스텔·주거지에 따라 건물 출입 방식과 방문 가능 시간이 달라, "
+              f"정확한 방문 주소를 기준으로 확인하는 것이 안전합니다.")
+        p2 = (f"{d} 방문 시에는 공동현관·엘리베이터 출입 방식, 호텔·숙소의 프런트 확인 방식, 예약 가능 시간을 먼저 확인해 주세요. "
+              f"외곽으로 이어지는 경우 이동 거리에 따른 기준도 함께 확인합니다.")
+        body = f"""<section class="section" style="padding-top:2rem"><div class="container">
+          <span class="eyebrow">{esc(parent_name)} · {esc(unit)}</span>
+          <h1>{esc(h1)}</h1><p class="lead">{esc(sub)}</p></div></section>"""
+        body += sec("방문 전 확인", f'<div class="prose"><p>{esc(p1)}</p><p>{esc(p2)}</p></div>')
+        if sib:
+            body += sec(f"인근 {unit} 보기", taglist(sib))
+        body += sec("이용·예약 전 확인 안내", taglist(longtail))
+        body += sec("상위 지역 보기", taglist(
+            [(f"{parent_name} 전체 안내", base),
+             ("부산 생활권 안내","/busan/") if base.startswith("/busan/") else ("경남 권역 안내","/gyeongnam/")]))
+        body += ('<section class="section"><div class="container"><div class="notice">'
+                 '<strong>불법·선정적 서비스 불가</strong> — 건전한 컨디션·릴랙스 케어 정보만 안내합니다. '
+                 '<a href="/check/service-policy/">이용 기준 보기 →</a></div></div></section>')
+        page(url, f"{h1}｜{SITE_NAME}", desc, crumbs, body,
+             area_name=f"{parent_name} {d}", priority=0.2, index=False)
+
+
 def build_busan_gu(g):
     url = f"/busan/{g['slug']}/"
     h1 = f"{g['name']} 출장마사지 · {g['h']} 생활권 안내"
@@ -709,9 +830,11 @@ def build_busan_gu(g):
     whw = (f"부산 {g['name']}의 생활권을 확인해 정리한 방문 안내입니다.",
            "실제 방문 주소·숙소 형태 기준으로 정리해 지역명 반복을 피했습니다.",
            "이용자가 방문 가능 지역인지 쉽게 확인하도록 돕기 위함입니다.")
+    dongs = BUSAN_DONG.get(g['slug'], [])
+    extra = subregion_section(f"{g['name']} 행정동 안내", url, dongs, "행정동") if dongs else ""
     body = region_body(h1, sub, over, g['h'], g['stations'],
                        "자택·호텔·오피스텔·업무지구에 따라 확인할 내용이 달라집니다.",
-                       near, faqs, whw, auth_keys=["humetro"])
+                       near, faqs, whw, auth_keys=["humetro"], extra=extra)
     page(url, f"{h1}｜{SITE_NAME}", desc, crumbs, body, faqs=faqs,
          area_name=f"부산 {g['name']}", priority=0.7)
 
@@ -759,8 +882,11 @@ def build_gn_city(c):
     use_intro = "자택·호텔·오피스텔·산업단지 인접 지역에 따라 확인할 내용이 달라집니다."
     if not is_index:
         use_intro = "외곽·산간 지역이 많아 방문 가능 여부와 이동 기준을 먼저 확인해야 합니다."
+    emd = GN_EMD.get(c['slug'], [])
+    unit = "읍·면" if c['slug'].endswith("-gun") else "읍·면·동"
+    extra = subregion_section(f"{c['name']} {unit} 안내", url, emd, unit) if emd else ""
     body = region_body(h1, sub, c['over'], c['life'], c['stations'], use_intro,
-                       near, faqs, whw, auth_keys=c.get('auth'))
+                       near, faqs, whw, auth_keys=c.get('auth'), extra=extra)
     page(url, f"{h1}｜{SITE_NAME}", desc, crumbs, body, faqs=faqs,
          area_name=c['name'], priority=(0.8 if is_index else 0.3), index=is_index)
 
@@ -1053,6 +1179,23 @@ def main():
     for g in BUSAN_GU: build_busan_gu(g)
     for a in GN_AREAS: build_gn_area(a)
     for c in ALL_GN_CITIES: build_gn_city(c)
+    # 하위 지역(행정동/읍·면·동) — noindex, 상호 롱테일 내부링크
+    for g in BUSAN_GU:
+        dongs = BUSAN_DONG.get(g['slug'], [])
+        area = next((x for x in BUSAN_AREAS if x['slug'] == g['area']), None)
+        area_hint = f"{area['name']} 생활권" if area else "부산 생활권"
+        unit = "읍·면" if g['slug'].endswith("-gun") else "행정동"
+        build_subregions(f"/busan/{g['slug']}/", g['name'],
+                         [("홈","/"),("부산 생활권","/busan/"),(g['name'],f"/busan/{g['slug']}/")],
+                         area_hint, g['stations'][0], dongs, unit)
+    for c in ALL_GN_CITIES:
+        emd = GN_EMD.get(c['slug'], [])
+        unit = "읍·면" if c['slug'].endswith("-gun") else "읍·면·동"
+        build_subregions(f"/gyeongnam/{c['slug']}/", c['name'],
+                         [("홈","/"),("경남 권역","/gyeongnam/"),
+                          (c['areaName'],"/gyeongnam/area/"+c['area']+"/"),
+                          (c['name'],f"/gyeongnam/{c['slug']}/")],
+                         c['areaName'], c['stations'][0], emd, unit)
     build_use_pages()
     build_check_pages()
     build_about_pages()
